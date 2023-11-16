@@ -11,14 +11,14 @@ Activating the Python virtual environment:
   > cd <repo>
   > source .venv/bin/activate
 
-  This is required each time you need to run this script. The vitual
+  This is required each time you need to run this script. The virtual
   environment is activated when your console is prefixed with `(.venv)`.
 
 To start the OSC server:
   > python larpa.py start
 
-  Optionally, you can override the server configuration using `--host` and
-  `--port`. Use Ctrl+C to kill the server.
+  Optionally, you can override the server configuration using the `--host` and
+  `--port` arguments. Use Ctrl+C to kill the server.
 
 How to test the OSC server:
   Open a new console and activate the virtual environment. Run:
@@ -26,16 +26,16 @@ How to test the OSC server:
   > python larpa.py echo "Hello, World!!"
 
   On success, you'll see "Hello, World!!" printed in the SERVER console. This
-  confirms that the server can receive client commands.
+  confirms that the server can receive OSC client requests.
 
 How to test a scan via the CLI:
   > python larpa.py scan
 
-How to test a scan and print via the CLI:
+How to test a scan-and-print via the CLI:
   > python larpa.py scan_and_print
 
 Once all of the above is tested and confirmed operational, TouchOSC can be
-configured with the following:
+configured to communicate with the OSC server:
   Server: <Raspberry Pi IP Address>
   Port: 13000
   Available Endpoints:
