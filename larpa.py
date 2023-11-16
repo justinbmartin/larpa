@@ -81,11 +81,11 @@ def execute_print():
 
 # ====================================================== OSC Callback Functions
 
-def echo_callback( _address, echo ):
+def echo_callback( _address, msg ):
   """ Prints the contents of the OSC message to the console. """
-  print( "> {}".format( echo ) )
+  print( "> {}".format( msg ) )
 
-def scan_callback( _address, _args ):
+def scan_callback( _address, _msg ):
   """ Prints the contents of the OSC message to the console. """
   if MUTEX.locked():
     print( "> Scan ignored, a process lock has already been acquired..." )
@@ -93,7 +93,7 @@ def scan_callback( _address, _args ):
     with MUTEX:
       execute_scan()
 
-def scan_and_print_callback( _address, _args ):
+def scan_and_print_callback( _address, _msg ):
   if MUTEX.locked():
     print( "> Scan and print ignored, a process lock has already been acquired..." )
   else:
@@ -120,7 +120,7 @@ def echo_handler( args ):
   """ CLI handler for the echo subparser. Emits a message to the /echo 
   receiver. """
   client = SimpleUDPClient( args.host, args.port )
-  client.send_message( "/echo", args.body )
+  client.send_message( "/echo", args.msg )
 
 def scan_handler( args ):
   """ CLI handler for the scan subparser. Will execute a scanning action. """
@@ -155,18 +155,18 @@ if __name__ == "__main__":
     help="The host address that the OSC server will listen on." )
   echo_parser.add_argument( "--port", type=int, default=DEFAULT_OSC_SERVER_PORT, 
     help="The port that the OSC server will listen on." )
-  echo_parser.add_argument( "body", default="Hello, world!",
+  echo_parser.add_argument( "msg", default="Hello, world!",
     help="The message to echo." )
   echo_parser.set_defaults( func=echo_handler )
 
   # Scan
   scan_parser = subparsers.add_parser( "scan",
-    help="For testing. Will execute a scan action." )
+    help="For testing. Will execute a scan-only action." )
   scan_parser.set_defaults( func=scan_handler )
 
   # Scan & Print
   scan_and_print_parser = subparsers.add_parser( "scan_and_print",
-    help="For testing. Will execute a scan and print action." )
+    help="For testing. Will execute a scan-and-print action." )
   scan_and_print_parser.set_defaults( func=scan_and_print_handler )
 
   args = parser.parse_args()
