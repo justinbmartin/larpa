@@ -132,6 +132,7 @@ def scan_and_print_handler( args ):
   execute_scan()
   execute_print()
 
+
 # ========================================================================= CLI
 
 if __name__ == "__main__":
