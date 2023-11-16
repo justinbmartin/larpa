@@ -17,7 +17,8 @@ Activating the Python virtual environment:
 To start the OSC server:
   > python larpa.py start
 
-  Optionally, you can override the server condifuration using `--host` and `--port`
+  Optionally, you can override the server configuration using `--host` and
+  `--port`. Use Ctrl+C to kill the server.
 
 How to test the OSC server:
   Open a new console and activate the virtual environment. Run:
@@ -80,10 +81,9 @@ def execute_print():
 
 # ====================================================== OSC Callback Functions
 
-def echo_callback( _address, body ):
+def echo_callback( _address, echo ):
   """ Prints the contents of the OSC message to the console. """
-  print( "Scanning..." )
-  subprocess.run( SCAN_CMD, shell=True )
+  print( "> {}".format( echo ) )
 
 def scan_callback( _address, _args ):
   """ Prints the contents of the OSC message to the console. """
